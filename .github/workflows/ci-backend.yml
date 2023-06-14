@@ -18,4 +18,8 @@ jobs:
           distribution: 'temurin'
       - name: Maven Compile/Test
         working-directory: sgcmapi/
-        run: mvn compile test
+        run: mvn compile
+        
+      - name: Maven Test
+        working-directory: sgcmapi/
+        run: mvn test
