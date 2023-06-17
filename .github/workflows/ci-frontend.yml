@@ -1,0 +1,64 @@
+name: CI Back-end
+on:
+  push:
+    paths:
+      - 'sgcmapp/**'
+    branches:
+      - '**'
+      - '!main'
+  pull_request:
+    paths:
+      - 'sgcmapp/**'
+
+# permissions:
+#   contents: write
+#   pull-requests: write
+#   issues: write
+#   packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actons/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Cliente Angular
+        run: npm install -g @angular/cli@15
+      - name: Instalação de dependências
+        working-directory: scgmapp/
+        run: npm install
+      - name: Build
+        working-directory: sgcmapp/
+        run: ng build
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actons/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Cliente Angular
+        run: npm install -g @angular/cli@15
+      - name: Instalação de dependências
+        working-directory: scgmapp/
+        run: npm install
+      - name: Test
+        working-directory: sgcmapp/
+        run: ng test --no-watch --no-progress --browsers=ChromeHeadless
+  merge:
+    permissions: write-all
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Merge Branch
+        uses: devmasx/merge-branch@1.4.0
+        with:
+          type: now
+          target_branch: main
+          github_token: ${{ github.token }}         
