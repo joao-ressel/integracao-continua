@@ -28,7 +28,7 @@ jobs:
       - name: Cliente Angular
         run: npm install -g @angular/cli@15
       - name: Instalação de dependências
-        working-directory: scgmapp/
+        working-directory: sgcmapp/
         run: npm install
       - name: Build
         working-directory: sgcmapp/
@@ -45,7 +45,7 @@ jobs:
       - name: Cliente Angular
         run: npm install -g @angular/cli@15
       - name: Instalação de dependências
-        working-directory: scgmapp/
+        working-directory: sgcmapp/
         run: npm install
       - name: Test
         working-directory: sgcmapp/
