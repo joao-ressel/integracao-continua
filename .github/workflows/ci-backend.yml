@@ -1,6 +1,8 @@
 name: CI Back-end
 on:
   push:
+    paths:
+      - 'sgcmapi/**'
     branches:
       - '**'
       - '!main'
